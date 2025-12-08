@@ -3,6 +3,12 @@ const express = require('express')
 const router = express.Router()
 
 // National faithful number
+router.get('/national-faithful-number', function(req, res) {
+    res.render("national-faithful-number", {
+        errorMsg: false
+    });
+});
+
 router.post('/national-faithful-number', function(req, res) {
     let number = req.session.data['nfs-number']
 
@@ -10,7 +16,7 @@ router.post('/national-faithful-number', function(req, res) {
     if (!number || number.trim() === "") {
         // Don't proceed, render page with error message - message set in the view
         return res.render("national-faithful-number", {
-            errorSummary: true
+            errorMsg: true
         });
     } else if (number == "123"){
         // If number entered is 123 then proceed to this page:
