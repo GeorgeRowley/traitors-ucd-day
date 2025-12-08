@@ -27,29 +27,39 @@
 {% block content %}
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-two-thirds">
+		{{ errorSummary({
+			titleText: "There is a problem",
+			descriptionText: "",
+			errorList: [
+				{
+				text: "Enter your national faithful number",
+				href: "#nfs-number"
+				}
+			]
+		}) }}
+
 		<form action="national-faithful-number" method="post">
-			<h1>Hello</h1>
+			{% if errorSummary %}
+				{% set errorMessage = { text: "Enter your national faithful number" } %}
+			{% else %}
+				{% set errorMessage = null %}
+			{% endif %}
 
 			{{ input({
 				label: {
-					text: "What is your full name?",
+					text: "What is your national faithful number?",
 					size: "l",
-					isPageHeading: true
+					isPageHeading: true,
+					classes: "nhsuk-label--l"
 				},
-				id: "full-name",
-				name: "fullName"
+				id: "nfs-number",
+				name: "nfs-number",
+				errorMessage: errorMessage
+			}) }}		
+
+			{{ button({
+				text: "Continue"
 			}) }}
-
-			<div class="nhsuk-form-group">
-  <h1 class="nhsuk-label-wrapper">
-    <label class="nhsuk-label nhsuk-label--l" for="full-name">
-      What is your full name?
-    </label>
-  </h1>
-  <input class="nhsuk-input" id="full-name" name="fullName" type="text">
-</div>
-			
-
 		</form>
     </div>
   </div>
