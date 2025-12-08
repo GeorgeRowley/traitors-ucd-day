@@ -17,7 +17,7 @@
   service name is needed. You can also reuse this variable
   within the <h1>, where they are the same.
 -->
-{% set pageName = "Start" %}
+{% set pageName = "National faithful number" %}
 
 <!-- For adding a breadcrumb or back link -->
 {% block beforeContent %}
@@ -27,27 +27,30 @@
 {% block content %}
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-two-thirds">
-		<h1>Register your faithful status</h1>
+		<form action="national-faithful-number" method="post">
+			<h1>Hello</h1>
 
-		<p>Use this service to register yourself as a faithful.</p>
+			{{ input({
+				label: {
+					text: "What is your full name?",
+					size: "l",
+					isPageHeading: true
+				},
+				id: "full-name",
+				name: "fullName"
+			}) }}
 
-		<h2 class="nhsuk-heading-l">Who can use this service</h2>
-		
-		<p>You can use this service if you attended UCD day 2025.</p>
+			<div class="nhsuk-form-group">
+  <h1 class="nhsuk-label-wrapper">
+    <label class="nhsuk-label nhsuk-label--l" for="full-name">
+      What is your full name?
+    </label>
+  </h1>
+  <input class="nhsuk-input" id="full-name" name="fullName" type="text">
+</div>
+			
 
-		<h2 class="nhsuk-heading-l">Before you start</h2>
-		
-		<p>You will need your:</p>
-
-		<ul class="nhsuk-list nhsuk-list--bullet">
-			<li>full team present</li>
-			<li>national faithful number</li>
-		</ul>
-
-		{{ button({
-			text: "Start now",
-			href: "national-faithful-number"
-		}) }}		
+		</form>
     </div>
   </div>
 {% endblock %}
