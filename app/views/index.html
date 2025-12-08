@@ -1,0 +1,53 @@
+<!-- Use this page as the index for your project -->
+
+<!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+
+<!-- Extends the layout from /app/views/layout.html -->
+{% extends 'layout.html' %}
+<!--
+  In /app/views/layout.html you can:
+    - change the header and footer
+    - add custom CSS and JavaScript
+-->
+
+<!--
+  Use this to set the page name which will appear at the
+  start of the <title> tag, followed by the service name.
+  This is often not needed on the homepage, where only the
+  service name is needed. You can also reuse this variable
+  within the <h1>, where they are the same.
+-->
+{% set pageName = "Start" %}
+
+<!-- For adding a breadcrumb or back link -->
+{% block beforeContent %}
+{% endblock %}
+
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+		<h1>Register your faithful status</h1>
+
+		<p>Use this service to register yourself as a faithful.</p>
+
+		<h2 class="nhsuk-heading-l">Who can use this service</h2>
+		
+		<p>You can use this service if you attended UCD day 2025.</p>
+
+		<h2 class="nhsuk-heading-l">Before you start</h2>
+		
+		<p>You will need your:</p>
+
+		<ul class="nhsuk-list nhsuk-list--bullet">
+			<li>full team present</li>
+			<li>a good memory of the tasks you have completed today</li>
+		</ul>
+
+		{{ button({
+			text: "Start now",
+			href: "question-one"
+		}) }}		
+    </div>
+  </div>
+{% endblock %}
