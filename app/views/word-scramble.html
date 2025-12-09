@@ -1,7 +1,6 @@
 <!-- Use this page as the index for your project -->
 
 <!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
-
 <!-- Extends the layout from /app/views/layout.html -->
 {% extends 'layout.html' %}
 <!--
@@ -37,7 +36,7 @@
 				errorList: [
 					{
 					text: "Enter an 8 character word",
-					href: "#scramble"
+					href: "#word-scramble"
 					}
 				]
 			}) }}
@@ -60,60 +59,65 @@
             html: insetTextHtml
             }) }}
 
-            {{ dateInput({
-  id: "date-of-birth",
-  namePrefix: "dateOfBirth",
-  fieldset: {
-    legend: {
-      text: "Enter your 8 character word:",
-      size: "l",
-      isPageHeading: false
-    }
-  },
-  items: [
-    {
-      name: "one",
-      label: " ",
-      classes: "nhsuk-input--width-2"
-    },
-    {
-      name: "two",
-      label: " ",
-      classes: "nhsuk-input--width-2"
-    },
-    {
-      name: "three",
-      label: " ",
-      classes: "nhsuk-input--width-2"
-    },
-    {
-      name: "four",
-      label: " ",
-      classes: "nhsuk-input--width-2"
-    },
-    {
-      name: "five",
-      label: " ",
-      classes: "nhsuk-input--width-2"
-    },
-    {
-      name: "six",
-      label: " ",
-      classes: "nhsuk-input--width-2"
-    },
-    {
-      name: "seven",
-      label: " ",
-      classes: "nhsuk-input--width-2"
-    },
-    {
-      name: "eight",
-      label: " ",
-      classes: "nhsuk-input--width-2"
-    }
-  ]
-}) }}
+            <style>
+                .nhsuk-date-input__item {
+                    margin-right: 12px !important;
+                }
+            </style>
 
+            {{ dateInput({
+                id: "word-scramble",
+                fieldset: {
+                    legend: {
+                        text: "Enter your 8 character word:",
+                        size: "l",
+                        isPageHeading: false
+                    }
+                },
+                errorMessage: errorMessage,
+                items: [
+                    {
+                        name: "one",
+                        label: " ",
+                        classes: "nhsuk-input--width-2"
+                    },
+                    {
+                        name: "two",
+                        label: " ",
+                        classes: "nhsuk-input--width-2"
+                    },
+                    {
+                        name: "three",
+                        label: " ",
+                        classes: "nhsuk-input--width-2"
+                    },
+                    {
+                        name: "four",
+                        label: " ",
+                        classes: "nhsuk-input--width-2"
+                    },
+                    {
+                        name: "five",
+                        label: " ",
+                        classes: "nhsuk-input--width-2"
+                    },
+                    {
+                        name: "six",
+                        label: " ",
+                        classes: "nhsuk-input--width-2"
+                    },
+                    {
+                        name: "seven",
+                        label: " ",
+                        classes: "nhsuk-input--width-2"
+                    },
+                    {
+                        name: "eight",
+                        label: " ",
+                        classes: "nhsuk-input--width-2"
+                    }
+                ]
+            }) }}
 
 			{{ button({
 				text: "Continue"

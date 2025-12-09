@@ -48,4 +48,36 @@ router.post('/animal-tangram-code', function(req, res) {
     }
 })
 
+// Word scramble
+router.post('/word-scramble', function(req, res) {
+    let one = req.session.data['one']
+    let two = req.session.data['two']
+    let three = req.session.data['three']
+    let four = req.session.data['four']
+    let five = req.session.data['five']
+    let six = req.session.data['six']
+    let seven = req.session.data['seven']
+    let eight = req.session.data['eight']
+
+    // If any fields are empty, show error
+    if (
+        !one || one.trim() === "" ||
+        !two || two.trim() === "" ||
+        !three || three.trim() === "" ||
+        !four || four.trim() === "" ||
+        !five || five.trim() === "" ||
+        !six || six.trim() === "" ||
+        !seven || seven.trim() === "" ||
+        !eight || eight.trim() === ""
+    ) {
+        // Don't proceed, render page with error message - error message text set in the view
+        return res.render("word-scramble", {
+            errorMsg: true
+        });
+    } else {
+        // If number is entered, then proceed to this page:
+        res.redirect("check-your-answers")
+    }
+})
+
 module.exports = router
