@@ -7,7 +7,7 @@ router.post('/what-team-are-you', function(req, res) {
     let team = req.body.team;
 
     // If select a team, then proceed
-    if (team == "A" || team == "B") {
+    if (team == "1" || team == "2") {
         res.redirect("national-faithful-number")
     } else {
         // Don't proceed and show error if nothing selected - error message text set in the view
@@ -22,7 +22,7 @@ router.post('/change-what-team-are-you', function(req, res) {
     let team = req.body.team;
 
     // If select a team, then proceed
-    if (team == "A" || team == "B") {
+    if (team == "1" || team == "2") {
         res.redirect("check-your-answers")
     } else {
         // Don't proceed and show error if nothing selected - error message text set in the view
@@ -44,7 +44,7 @@ router.post('/national-faithful-number', function(req, res) {
         });
     } else {
         // If number is entered, then proceed to this page:
-        res.redirect("animal-tangram-code")
+        res.redirect("days-faithful")
     }
 })
 
@@ -64,31 +64,31 @@ router.post('/change-national-faithful-number', function(req, res) {
     }
 })
 
-// Animal tangram combination code
-router.post('/animal-tangram-code', function(req, res) {
-     let code = req.body.code;
+// How many days have you been a faithful?
+router.post('/days-faithful', function(req, res) {
+     let days = req.body.days;
 
     // If select a team, then proceed
-    if (code == "121" || code == "111" || code == "147" || code == "87") {
+    if (days == "121" || days == "111" || days == "147" || days == "87") {
         res.redirect("word-scramble")
     } else {
         // Don't proceed and show error if nothing selected - error message text set in the view
-        return res.render("animal-tangram-code", {
+        return res.render("days-faithful", {
             errorMsg: true
         });
     }
 })
 
-// Change - Animal tangram combination code
-router.post('/change-animal-tangram-code', function(req, res) {
-     let code = req.body.code;
+// Change - How many days have you been a faithful?
+router.post('/change-days-faithful', function(req, res) {
+     let days = req.body.days;
 
     // If select a team, then proceed
-    if (code == "121" || code == "111" || code == "147" || code == "87") {
+    if (days == "121" || days == "111" || days == "147" || days == "87") {
         res.redirect("check-your-answers")
     } else {
         // Don't proceed and show error if nothing selected - error message text set in the view
-        return res.render("change-animal-tangram-code", {
+        return res.render("change-days-faithful", {
             errorMsg: true
         });
     }
@@ -162,7 +162,7 @@ router.post('/change-word-scramble', function(req, res) {
 router.post('/check-your-answers', function(req, res) {
     let team = req.session.data['team']
     let number = req.session.data['number']
-    let code = req.session.data['code']
+    let days = req.session.data['days']
 
     let one = req.session.data['one']
     let two = req.session.data['two']
@@ -177,7 +177,7 @@ router.post('/check-your-answers', function(req, res) {
         // Team A - 925461738, 111 and abruptly as asnwers is success
         team == "A" && 
         number == "925461738" && 
-        code == "111" && 
+        days == "111" && 
         one == "a" && 
         two == "b" &&
         three == "r" &&
@@ -192,7 +192,7 @@ router.post('/check-your-answers', function(req, res) {
         // Team B - 925461738, 147 and abruptly as asnwers is success
         team == "B" && 
         number == "925461738" && 
-        code == "147" && 
+        days == "147" && 
         one == "a" && 
         two == "b" &&
         three == "r" &&

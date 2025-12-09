@@ -17,7 +17,7 @@
   service name is needed. You can also reuse this variable
   within the <h1>, where they are the same.
 -->
-{% set pageName = "Change - What is your tangram combination code?" %}
+{% set pageName = "Change - How many days have you been a faithful?" %}
 
 <!-- For adding a breadcrumb or back link -->
 {% block beforeContent %}
@@ -36,27 +36,27 @@
 				descriptionText: "",
 				errorList: [
 					{
-					text: "Select your combination code",
-					href: "#code-error"
+					text: "Select amount of days",
+					href: "#days-error"
 					}
 				]
 			}) }}
 		{% endif %}   
 
-		<form action="change-animal-tangram-code" method="post">
+		<form action="change-days-faithful" method="post">
 			{% if errorMsg == true %}
-				{% set errorMessage = { text: "Select your combination code" } %}
+				{% set errorMessage = { text: "Select amount of days" } %}
 			{% else %}
 				{% set errorMessage = null %}
 			{% endif %}
 
             {{ radios({
-                idPrefix: "code",
-                name: "code",
+                idPrefix: "days",
+                name: "days",
                 errorMessage: errorMessage,
                 fieldset: {
                     legend: {
-                        text: "What is your animal tangram combination code?",
+                        text: "How many days have you been a faithful?",
                         size: "l",
                         isPageHeading: true,
                         classes: "nhsuk-label--l"

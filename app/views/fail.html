@@ -35,12 +35,12 @@
 
         <p>Unfortunately you have either answered the questions incorrectly, or have been sabotaged by a traitor amongst your ranks.</p>
 
-        {% if data.team == "A" %}
-            <!-- Team A answers -->
+        {% if data.team == "1" %}
+            <!-- Team 1 answers -->
             {{ table({
                 responsive: false,
                 panel: false,
-                caption: "Team A answers",
+                caption: "Team 1 answers",
                 firstCellIsHeader: true,
                 head: [
                     {
@@ -91,12 +91,12 @@
             }) }}
         {% endif %}
         
-        {% if data.team == "B" %}
-            <!-- Team B answers -->
+        {% if data.team == "2" %}
+            <!-- Team 2 answers -->
             {{ table({
                 responsive: false,
                 panel: false,
-                caption: "Team B answers",
+                caption: "Team 2 answers",
                 firstCellIsHeader: true,
                 head: [
                     {
