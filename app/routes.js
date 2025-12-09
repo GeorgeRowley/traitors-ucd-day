@@ -174,8 +174,8 @@ router.post('/check-your-answers', function(req, res) {
     let eight = req.session.data['eight']
 
     if (
-        // Team A - 925461738, 111 and abruptly as asnwers is success
-        team == "A" && 
+        // Team 1 - 925461738, 111 and abruptly as asnwers is success
+        team == "1" && 
         number == "925461738" && 
         days == "111" && 
         one == "a" && 
@@ -189,8 +189,8 @@ router.post('/check-your-answers', function(req, res) {
     ) {
         res.redirect("success")
     } else if (
-        // Team B - 925461738, 147 and abruptly as asnwers is success
-        team == "B" && 
+        // Team 2 - 925461738, 147 and abruptly as asnwers is success
+        team == "2" && 
         number == "925461738" && 
         days == "147" && 
         one == "a" && 
