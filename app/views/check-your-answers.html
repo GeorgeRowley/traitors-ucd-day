@@ -27,7 +27,85 @@
 {% block content %}
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-two-thirds">
-		<h1>Check your answers</h1>
+		<h1>Check your answers before sending your status</h1>
+
+        {{ summaryList({
+            rows: [
+                {
+                    key: {
+                        text: "Team"
+                    },
+                    value: {
+                        html: "Team" + " " + data.team
+                    },
+                    actions: {
+                        items: [
+                        {
+                            href: "#",
+                            text: "Change",
+                            visuallyHiddenText: "team"
+                        }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: "National faithful number"
+                    },
+                    value: {
+                        html: data.number
+                    },
+                    actions: {
+                        items: [
+                        {
+                            href: "#",
+                            text: "Change",
+                            visuallyHiddenText: "national faithful number"
+                        }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: "Tangram combination code"
+                    },
+                    value: {
+                        html: data.code
+                    },
+                    actions: {
+                        items: [
+                        {
+                            href: "#",
+                            text: "Change",
+                            visuallyHiddenText: "tangram code"
+                        }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: "Unscrambled word"
+                    },
+                    value: {
+                        html: data.one + data.two + data.three + data.four + data.five + data.six + data.seven + data.eight
+                    },
+                    actions: {
+                        items: [
+                        {
+                            href: "#",
+                            text: "Change",
+                            visuallyHiddenText: "unscrambled word"
+                        }
+                        ]
+                    }
+                }
+            ]
+        }) }}
+
+        {{ button({
+            text: "Confirm and send",
+            href: "completed"
+        }) }}
     </div>
   </div>
 {% endblock %}

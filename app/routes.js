@@ -7,7 +7,7 @@ router.post('/what-team-are-you', function(req, res) {
     let team = req.body.team;
 
     // If select a team, then proceed
-    if (team == "a" || team == "b") {
+    if (team == "A" || team == "B") {
         res.redirect("national-faithful-number")
     } else {
         // Don't proceed and show error if nothing selected - error message text set in the view
@@ -19,7 +19,7 @@ router.post('/what-team-are-you', function(req, res) {
 
 // National faithful number
 router.post('/national-faithful-number', function(req, res) {
-    let number = req.session.data['nfs-number']
+    let number = req.session.data['number']
 
     // Number field empty, show error
     if (!number || number.trim() === "") {
