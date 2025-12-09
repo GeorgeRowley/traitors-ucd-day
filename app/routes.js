@@ -4,7 +4,7 @@ const router = express.Router()
 
 // Which team are you on?
 router.post('/what-team-are-you', function(req, res) {
-    let team = req.session.data['team']
+    let team = req.body.team;
 
     // If select a team, then proceed
     if (team == "a" || team == "b") {
@@ -35,7 +35,7 @@ router.post('/national-faithful-number', function(req, res) {
 
 // Animal tangram combination code
 router.post('/animal-tangram-code', function(req, res) {
-    let code = req.session.data['code']
+     let code = req.body.code;
 
     // If select a team, then proceed
     if (code == "121" || code == "111" || code == "147" || code == "87") {
