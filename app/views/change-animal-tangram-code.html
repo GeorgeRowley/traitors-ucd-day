@@ -1,0 +1,91 @@
+<!-- Use this page as the index for your project -->
+
+<!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+
+<!-- Extends the layout from /app/views/layout.html -->
+{% extends 'layout.html' %}
+<!--
+  In /app/views/layout.html you can:
+    - change the header and footer
+    - add custom CSS and JavaScript
+-->
+
+<!--
+  Use this to set the page name which will appear at the
+  start of the <title> tag, followed by the service name.
+  This is often not needed on the homepage, where only the
+  service name is needed. You can also reuse this variable
+  within the <h1>, where they are the same.
+-->
+{% set pageName = "Change - What is your tangram combination code?" %}
+
+<!-- For adding a breadcrumb or back link -->
+{% block beforeContent %}
+	{{ backLink({
+		href: "check-your-answers",
+		text: "Back"
+	}) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+		{% if errorMsg == true %}
+			{{ errorSummary({
+				titleText: "There is a problem",
+				descriptionText: "",
+				errorList: [
+					{
+					text: "Select your combination code",
+					href: "#code-error"
+					}
+				]
+			}) }}
+		{% endif %}   
+
+		<form action="change-animal-tangram-code" method="post">
+			{% if errorMsg == true %}
+				{% set errorMessage = { text: "Select your combination code" } %}
+			{% else %}
+				{% set errorMessage = null %}
+			{% endif %}
+
+            {{ radios({
+                idPrefix: "code",
+                name: "code",
+                errorMessage: errorMessage,
+                fieldset: {
+                    legend: {
+                        text: "What is your animal tangram combination code?",
+                        size: "l",
+                        isPageHeading: true,
+                        classes: "nhsuk-label--l"
+                    }
+                },
+                items: [
+                    {
+                        value: "121",
+                        text: "121"
+                    },
+                    {
+                        value: "111",
+                        text: "111"
+                    },
+                    {
+                        value: "147",
+                        text: "147"
+                    },
+                    {
+                        value: "87",
+                        text: "87"
+                    }
+                ]
+            }) }}
+
+			{{ button({
+				text: "Continue"
+			}) }}
+		</form>
+    </div>
+</div>
+{% endblock %}
