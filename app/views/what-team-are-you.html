@@ -21,10 +21,7 @@
 
 <!-- For adding a breadcrumb or back link -->
 {% block beforeContent %}
-	{{ backLink({
-		href: "what-team-are-you",
-		text: "Back"
-	}) }}
+
 {% endblock %}
 
 {% block content %}
@@ -36,31 +33,43 @@
 				descriptionText: "",
 				errorList: [
 					{
-					text: "Enter your national faithful number",
-					href: "#nfs-number"
+					text: "Select which team you are on",
+					href: "#team-error"
 					}
 				]
 			}) }}
 		{% endif %}   
 
-		<form action="national-faithful-number" method="post">
+		<form action="what-team-are-you" method="post">
 			{% if errorMsg == true %}
-				{% set errorMessage = { text: "Enter your national faithful number" } %}
+				{% set errorMessage = { text: "Select which team you are on" } %}
 			{% else %}
 				{% set errorMessage = null %}
 			{% endif %}
 
-			{{ input({
-				label: {
-					text: "What is your national faithful number?",
-					size: "l",
-					isPageHeading: true,
-					classes: "nhsuk-label--l"
-				},
-				id: "nfs-number",
-				name: "nfs-number",
-				errorMessage: errorMessage
-			}) }}		
+            {{ radios({
+                idPrefix: "team",
+                name: "team",
+                fieldset: {
+                    legend: {
+                    text: "Which team are you on?",
+                    size: "l",
+                    isPageHeading: true,
+                    classes: "nhsuk-label--l"
+                    }
+                },
+                items: [
+                    {
+                    value: "a",
+                    text: "Team A"
+                    },
+                    {
+                    value: "b",
+                    text: "Team B"
+                    }
+                ],
+                errorMessage: errorMsg
+            }) }}
 
 			{{ button({
 				text: "Continue"

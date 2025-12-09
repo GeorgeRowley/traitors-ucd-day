@@ -2,27 +2,33 @@
 const express = require('express')
 const router = express.Router()
 
-// National faithful number
-router.get('/national-faithful-number', function(req, res) {
-    res.render("national-faithful-number", {
-        errorMsg: false
-    });
-});
+// Which team are you on?
+router.post('/what-team-are-you', function(req, res) {
+    let team = req.session.data['team']
 
+    // If select a team, then proceed
+    if (team == "a" || team == "b") {
+        res.redirect("national-faithful-number")
+    } else {
+        // Don't proceed and show error if nothing selected - error message text set in the view
+        return res.render("what-team-are-you", {
+            errorMsg: true
+        });
+    }
+})
+
+// National faithful number
 router.post('/national-faithful-number', function(req, res) {
     let number = req.session.data['nfs-number']
 
     // Number field empty, show error
     if (!number || number.trim() === "") {
-        // Don't proceed, render page with error message - message set in the view
+        // Don't proceed, render page with error message - error message text set in the view
         return res.render("national-faithful-number", {
             errorMsg: true
         });
-    } else if (number == "123"){
-        // If number entered is 123 then proceed to this page:
-        res.redirect("correct")
     } else {
-        // If any other number is entered, then proceed to this page:
+        // If number is entered, then proceed to this page:
         res.redirect("incorrect")
     }
 })
