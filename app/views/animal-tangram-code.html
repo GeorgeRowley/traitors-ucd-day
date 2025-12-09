@@ -17,11 +17,14 @@
   service name is needed. You can also reuse this variable
   within the <h1>, where they are the same.
 -->
-{% set pageName = "Which team are you on?" %}
+{% set pageName = "What is your tangram combination code?" %}
 
 <!-- For adding a breadcrumb or back link -->
 {% block beforeContent %}
-
+	{{ backLink({
+		href: "national-faithful-number",
+		text: "Back"
+	}) }}
 {% endblock %}
 
 {% block content %}
@@ -33,40 +36,48 @@
 				descriptionText: "",
 				errorList: [
 					{
-					text: "Select which team you are on",
-					href: "#team-error"
+					text: "Select your combination code",
+					href: "#code-error"
 					}
 				]
 			}) }}
 		{% endif %}   
 
-		<form action="what-team-are-you" method="post">
+		<form action="animal-tangram-code" method="post">
 			{% if errorMsg == true %}
-				{% set errorMessage = { text: "Select which team you are on" } %}
+				{% set errorMessage = { text: "Select your combination code" } %}
 			{% else %}
 				{% set errorMessage = null %}
 			{% endif %}
 
             {{ radios({
-                idPrefix: "team",
-                name: "team",
+                idPrefix: "code",
+                name: "code",
                 errorMessage: errorMessage,
                 fieldset: {
                     legend: {
-                    text: "Which team are you on?",
-                    size: "l",
-                    isPageHeading: true,
-                    classes: "nhsuk-label--l"
+                        text: "What is your animal tangram combination code?",
+                        size: "l",
+                        isPageHeading: true,
+                        classes: "nhsuk-label--l"
                     }
                 },
                 items: [
                     {
-                    value: "a",
-                    text: "Team A"
+                        value: "121",
+                        text: "121"
                     },
                     {
-                    value: "b",
-                    text: "Team B"
+                        value: "111",
+                        text: "111"
+                    },
+                    {
+                        value: "147",
+                        text: "147"
+                    },
+                    {
+                        value: "87",
+                        text: "87"
                     }
                 ]
             }) }}

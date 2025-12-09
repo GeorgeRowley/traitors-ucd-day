@@ -29,7 +29,22 @@ router.post('/national-faithful-number', function(req, res) {
         });
     } else {
         // If number is entered, then proceed to this page:
-        res.redirect("incorrect")
+        res.redirect("animal-tangram-code")
+    }
+})
+
+// Animal tangram combination code
+router.post('/animal-tangram-code', function(req, res) {
+    let code = req.session.data['code']
+
+    // If select a team, then proceed
+    if (code == "121" || code == "111" || code == "147" || code == "87") {
+        res.redirect("word-scramble")
+    } else {
+        // Don't proceed and show error if nothing selected - error message text set in the view
+        return res.render("animal-tangram-code", {
+            errorMsg: true
+        });
     }
 })
 
