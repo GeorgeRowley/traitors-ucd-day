@@ -1,0 +1,38 @@
+<!-- Use this page as the index for your project -->
+
+<!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+
+<!-- Extends the layout from /app/views/layout.html -->
+{% extends 'layout.html' %}
+<!--
+  In /app/views/layout.html you can:
+    - change the header and footer
+    - add custom CSS and JavaScript
+-->
+
+<!--
+  Use this to set the page name which will appear at the
+  start of the <title> tag, followed by the service name.
+  This is often not needed on the homepage, where only the
+  service name is needed. You can also reuse this variable
+  within the <h1>, where they are the same.
+-->
+{% set pageName = "Success" %}
+
+<!-- For adding a breadcrumb or back link -->
+{% block beforeContent %}
+{% endblock %}
+
+
+{% block content %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        {{ panel({
+            titleText: "Registration complete",
+            text: "We have confirmed your faithful status"
+        }) }}
+
+        <p>You have answered all the questions correctly, successfully avoiding sabotage by a traitor amongst your ranks.</p>
+    </div>
+</div>
+{% endblock %}

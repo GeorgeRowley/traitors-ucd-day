@@ -1,0 +1,151 @@
+<!-- Use this page as the index for your project -->
+
+<!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+
+<!-- Extends the layout from /app/views/layout.html -->
+{% extends 'layout.html' %}
+<!--
+  In /app/views/layout.html you can:
+    - change the header and footer
+    - add custom CSS and JavaScript
+-->
+
+<!--
+  Use this to set the page name which will appear at the
+  start of the <title> tag, followed by the service name.
+  This is often not needed on the homepage, where only the
+  service name is needed. You can also reuse this variable
+  within the <h1>, where they are the same.
+-->
+{% set pageName = "Failure" %}
+
+<!-- For adding a breadcrumb or back link -->
+{% block beforeContent %}
+{% endblock %}
+
+
+{% block content %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        {{ panel({
+            titleText: "Registration failed",
+            text: "We could not confirm your faithful status",
+            classes: "red-bg"
+        }) }}
+
+        <p>Unfortunately you have either answered the questions incorrectly, or have been sabotaged by a traitor amongst your ranks.</p>
+
+        {% if data.team == "A" %}
+            <!-- Team A answers -->
+            {{ table({
+                responsive: false,
+                panel: false,
+                caption: "Team A answers",
+                firstCellIsHeader: true,
+                head: [
+                    {
+                    text: "Question"
+                    },
+                    {
+                    text: "Your answers"
+                    },
+                    {
+                    text: "Correct answers"
+                    }
+                ],
+                rows: [
+                    [
+                    {
+                        text: "National faithful number"
+                    },
+                    {
+                        html: data.number
+                    },
+                    {
+                        text: "925461738"
+                    }
+                    ],
+                    [
+                    {
+                        text: "Tangram combination code"
+                    },
+                    {
+                        html: data.code
+                    },
+                    {
+                        text: "111"
+                    }
+                    ],
+                    [
+                    {
+                        text: "Unscrambled word"
+                    },
+                    {
+                        html: data.one + data.two + data.three + data.four + data.five + data.six + data.seven + data.eight
+                    },
+                    {
+                        text: "abruptly"
+                    }
+                    ]
+                ]
+            }) }}
+        {% endif %}
+        
+        {% if data.team == "B" %}
+            <!-- Team B answers -->
+            {{ table({
+                responsive: false,
+                panel: false,
+                caption: "Team B answers",
+                firstCellIsHeader: true,
+                head: [
+                    {
+                    text: "Question"
+                    },
+                    {
+                    text: "Your answers"
+                    },
+                    {
+                    text: "Correct answers"
+                    }
+                ],
+                rows: [
+                    [
+                    {
+                        text: "National faithful number"
+                    },
+                    {
+                        html: data.number
+                    },
+                    {
+                        text: "925461738"
+                    }
+                    ],
+                    [
+                    {
+                        text: "Tangram combination code"
+                    },
+                    {
+                        html: data.code
+                    },
+                    {
+                        text: "147"
+                    }
+                    ],
+                    [
+                    {
+                        text: "Unscrambled word"
+                    },
+                    {
+                        html: data.one + data.two + data.three + data.four + data.five + data.six + data.seven + data.eight
+                    },
+                    {
+                        text: "abruptly"
+                    }
+                    ]
+                ]
+            }) }}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

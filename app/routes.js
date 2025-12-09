@@ -80,4 +80,55 @@ router.post('/word-scramble', function(req, res) {
     }
 })
 
+// Check your answers
+router.post('/check-your-answers', function(req, res) {
+    let team = req.session.data['team']
+    let number = req.session.data['number']
+    let code = req.session.data['code']
+
+    let one = req.session.data['one']
+    let two = req.session.data['two']
+    let three = req.session.data['three']
+    let four = req.session.data['four']
+    let five = req.session.data['five']
+    let six = req.session.data['six']
+    let seven = req.session.data['seven']
+    let eight = req.session.data['eight']
+
+    if (
+        // Team A - 925461738, 111 and abruptly as asnwers is success
+        team == "A" && 
+        number == "925461738" && 
+        code == "111" && 
+        one == "a" && 
+        two == "b" &&
+        three == "r" &&
+        four == "u" &&
+        five == "p" &&
+        six == "t" &&
+        seven == "l" &&
+        eight == "y"
+    ) {
+        res.redirect("success")
+    } else if (
+        // Team B - 925461738, 147 and abruptly as asnwers is success
+        team == "B" && 
+        number == "925461738" && 
+        code == "147" && 
+        one == "a" && 
+        two == "b" &&
+        three == "r" &&
+        four == "u" &&
+        five == "p" &&
+        six == "t" &&
+        seven == "l" &&
+        eight == "y"
+    ) {
+        res.redirect("success")
+    } else {
+        // If any other answers, they fail
+        res.redirect("fail")
+    }
+})
+
 module.exports = router

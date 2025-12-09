@@ -25,7 +25,7 @@
 
 
 {% block content %}
-  <div class="nhsuk-grid-row">
+<div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-two-thirds">
 		<h1>Check your answers before sending your status</h1>
 
@@ -102,10 +102,13 @@
             ]
         }) }}
 
-        {{ button({
-            text: "Confirm and send",
-            href: "completed"
-        }) }}
+        <p>This information will be sent to the National Faithful Service to comfirm your status.</p>
+        
+        <form action="check-your-answers" method="post" novalidate>
+            {{ button({
+                text: "Confirm and send"
+            }) }}
+        </form>
     </div>
-  </div>
+</div>
 {% endblock %}
