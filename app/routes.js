@@ -137,7 +137,7 @@ router.post('/check-your-answers', function(req, res) {
         // Team 1 - 925461738, 111 and REACT, SPIRE as asnwers is success
         team == "1" && 
         number == "925461738" && 
-        days == "111" && 
+        days == "147" && 
         words.indexOf('REACT') > -1 &&
         words.indexOf('SPIRE') > -1
         
@@ -147,7 +147,7 @@ router.post('/check-your-answers', function(req, res) {
         // Team 2 - 925461738, 147 and PLANE, LASER as asnwers is success
         team == "2" && 
         number == "925461738" && 
-        days == "147" && 
+        days == "111" && 
         words.indexOf('PLANE') > -1 &&
         words.indexOf('LASER') > -1
     ) {
