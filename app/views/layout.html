@@ -39,6 +39,239 @@
 <!-- Edit the footer -->
 <!-- Footer code examples can be found at https://service-manual.nhs.uk/design-system/components/footer -->
 {% block footer %}
+
+<div class="claudia-popup">
+        <div class="speech-bubble" id="bubble">...</div>
+        <div class="claudia-face" id="face">
+            <div class="hair-side left"></div>
+            <div class="hair-side right"></div>
+            <div class="hair-fringe"></div>
+            <div class="eyes-container">
+                <div class="eye"><div class="pupil"></div></div>
+                <div class="eye"><div class="pupil"></div></div>
+            </div>
+            <div class="mouth" id="mouth"></div>
+        </div>
+    </div>
+
+
+    <script>
+    const pupils = document.querySelectorAll('.pupil');
+    const eyes = document.querySelectorAll('.eye');
+    const face = document.getElementById('face');
+    const bubble = document.getElementById('bubble');
+    const mouth = document.getElementById('mouth');
+
+    // --- Mouse Follow Logic ---
+    document.addEventListener('mousemove', (e) => {
+        eyes.forEach((eye, index) => {
+            const pupil = pupils[index];
+            const rect = eye.getBoundingClientRect();
+            const angle = Math.atan2(e.clientY - (rect.top + rect.height / 2), e.clientX - (rect.left + rect.width / 2));
+            const distance = Math.min(2.5, Math.hypot(e.clientX - (rect.left + rect.width / 2), e.clientY - (rect.top + rect.height / 2)) / 10);
+            const pupilX = Math.cos(angle) * distance * 3; 
+            const pupilY = Math.sin(angle) * distance * 2;
+            pupil.style.transform = `translate(calc(-50% + ${pupilX}px), calc(-50% + ${pupilY}px))`;
+        });
+    });
+
+    // --- Traitors Quotes Logic ---
+    const quotes = [
+        "Hello my Faithfuls...",
+        "Are you 100% faithful?",
+        "Tonight, someone will be murdered.",
+        "I need a name.",
+        "Please, remove your hoods.",
+        "It's just a game... isn't it?",
+        "Who committed the murder?",
+        "Sleep well...",
+        "A murder most foul.",
+        "The clock is ticking."
+    ];
+
+    function speak() {
+        const text = quotes[Math.floor(Math.random() * quotes.length)];
+        bubble.innerText = text;
+        bubble.classList.add('visible');
+        
+        // Start talking animation
+        mouth.classList.add('talking');
+
+        if (text.toLowerCase().includes("murder")) {
+            face.classList.add('shocked');
+        }
+
+        setTimeout(() => {
+            bubble.classList.remove('visible');
+            face.classList.remove('shocked');
+            // Stop talking animation
+            mouth.classList.remove('talking');
+        }, 3000);
+
+        const nextTime = Math.random() * 5000 + 5000;
+        setTimeout(speak, nextTime);
+    }
+
+    setTimeout(speak, 1000);
+
+</script>
+
+<style>
+
+
+    .claudia-popup {
+        position: fixed;
+        bottom: -20px;
+        right: 20px;
+        width: 200px;
+        height: 240px;
+        transition: bottom 0.5s ease-out;
+        z-index: 9999;
+    }
+
+    .claudia-popup:hover {
+        bottom: 0;
+    }
+
+    .speech-bubble {
+        position: absolute;
+        bottom: 250px;
+        right: 0;
+        width: 220px;
+        background: #fff;
+        border: 2px solid #333;
+        border-radius: 15px;
+        padding: 15px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+    }
+
+    .speech-bubble::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        right: 80px;
+        border-width: 10px 10px 0;
+        border-style: solid;
+        border-color: #333 transparent;
+        display: block;
+        width: 0;
+    }
+
+    .speech-bubble.visible {
+        opacity: 1;
+    }
+
+    .claudia-face {
+        width: 100%;
+        height: 100%;
+        background-color: #ffdbac;
+        border-radius: 60px 60px 0 0;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid #333;
+    }
+
+    .hair-fringe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 49%;
+        background: #1a1a1a;
+        z-index: 10;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .hair-side {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+        background: #1a1a1a;
+        z-index: 5;
+    }
+    .left { left: 0; }
+    .right { right: 0; }
+
+    .eyes-container {
+        position: absolute;
+        top: 45%; 
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        z-index: 4; 
+    }
+
+    @keyframes blink {
+        0%, 96%, 100% { transform: scaleY(1); }
+        98% { transform: scaleY(0.1); }
+    }
+
+    .eye {
+        width: 40px;
+        height: 25px;
+        background: white;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        border: 3px solid #000;
+        box-shadow: 0 0 5px #000;
+        animation: blink 5s infinite; 
+        transform-origin: center;
+        transition: transform 0.2s ease;
+    }
+
+    .claudia-face.shocked .eye {
+        animation: none;
+        transform: scale(1.2);
+    }
+
+    .pupil {
+        width: 12px;
+        height: 12px;
+        background: #333;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* MOUTH ANIMATION */
+    @keyframes talk {
+        0% { height: 5px; border-radius: 0 0 10px 10px; }
+        50% { height: 15px; border-radius: 0 0 20px 20px; }
+        100% { height: 5px; border-radius: 0 0 10px 10px; }
+    }
+
+    .mouth {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 10px;
+        background: #d68a8a;
+        border-radius: 0 0 20px 20px;
+        /* Will animate when .talking class is added */
+    }
+
+    .mouth.talking {
+        animation: talk 0.2s infinite;
+    }
+
+</style>
+
+
   {{ footer({
     meta: {
       items: [
