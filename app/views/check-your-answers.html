@@ -29,6 +29,9 @@
     <div class="nhsuk-grid-column-two-thirds">
 		<h1>Check your answers before sending your status</h1>
 
+        {% set wordOne = data.wordOne | upper %}
+        {% set wordTwo = data.wordTwo | upper %}
+
         {{ summaryList({
             rows: [
                 {
@@ -41,7 +44,7 @@
                     actions: {
                         items: [
                         {
-                            href: "change-what-team-are-you",
+                            href: "what-team-are-you?cya=true",
                             text: "Change",
                             visuallyHiddenText: "team"
                         }
@@ -58,7 +61,7 @@
                     actions: {
                         items: [
                         {
-                            href: "change-national-faithful-number",
+                            href: "national-faithful-number?cya=true",
                             text: "Change",
                             visuallyHiddenText: "national faithful number"
                         }
@@ -70,12 +73,12 @@
                         text: "Days as a faithful"
                     },
                     value: {
-                        html: data.days
+                        html: data.daysFaithful
                     },
                     actions: {
                         items: [
                         {
-                            href: "change-days-faithful",
+                            href: "days-faithful?cya=true",
                             text: "Change",
                             visuallyHiddenText: "tangram code"
                         }
@@ -87,12 +90,12 @@
                         text: "Unscrambled words"
                     },
                     value: {
-                        html: data.one + data.two + data.three + data.four + data.five + data.six + data.seven + data.eight
+                        html: wordOne + ' ' + wordTwo
                     },
                     actions: {
                         items: [
                         {
-                            href: "change-word-scramble",
+                            href: "maze-scramble?cya=true",
                             text: "Change",
                             visuallyHiddenText: "unscrambled word"
                         }
@@ -102,7 +105,7 @@
             ]
         }) }}
 
-        <p>This information will be sent to the National Faithful Service to comfirm your status.</p>
+        <p>This information will be sent to the National Faithful Service to confirm your status.</p>
         
         <form action="check-your-answers" method="post" novalidate>
             {{ button({

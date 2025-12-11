@@ -17,7 +17,7 @@
   service name is needed. You can also reuse this variable
   within the <h1>, where they are the same.
 -->
-{% set pageName = "Start" %}
+{% set pageName = "Cheat" %}
 
 <!-- For adding a breadcrumb or back link -->
 {% block beforeContent %}
@@ -25,31 +25,18 @@
 
 
 {% block content %}
-  <div class="nhsuk-grid-row">
+
+<div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-two-thirds">
-		<h1>Register your faithful status</h1>
 
-		<p>Use this service to register yourself as a faithful.</p>
+        {{ panel({
+            titleText: "Cheater, cheater",
+            text: "You tried to change your answers after you had failed",
+            classes: "red-bg"
+        }) }}
 
-		<h2 class="nhsuk-heading-l">Who can use this service</h2>
-		
-		<p>You can use this service if you attended UCD day 2025.</p>
+        <p>Were you just brazenly dishonest, or have you been sabotaged by a traitor amongst your ranks?</p>
 
-		<h2 class="nhsuk-heading-l">Before you start</h2>
-		
-		<p>You will need to know:</p>
-
-		<ul class="nhsuk-list nhsuk-list--bullet">
-			<li>your designated team</li>
-			<li>your national faithful number</li>
-			<li>the number of days you've been a faithful</li>
-			<li>the secret faithful code words</li>
-		</ul>
-
-		{{ button({
-			text: "Start now",
-			href: "what-team-are-you"
-		}) }}		
     </div>
-  </div>
+</div>
 {% endblock %}

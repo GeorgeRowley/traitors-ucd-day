@@ -1,212 +1,163 @@
 // External dependencies
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-// Which team are you on?
+
+//
+// CHEAT PREVENTION
+//
+router.use(function(req, res, next){
+
+    console.log( req.originalUrl );
+
+    if( req.session.data.failedTask === 'true' && req.originalUrl !== '/fail' ){
+        res.render('cheat');
+    } else {
+        next();
+    } 
+
+});
+
+
+//
+// WHAT TEAM ARE YOU ON?
+//
 router.post('/what-team-are-you', function(req, res) {
     let team = req.body.team;
 
     // If select a team, then proceed
     if (team == "1" || team == "2") {
-        res.redirect("national-faithful-number")
+
+        if( req.session.data.cya === 'true' ){
+            delete req.session.data.cya;
+            res.redirect('check-your-answers');
+        } else {
+            res.redirect('national-faithful-number');
+        }
+
     } else {
+
         // Don't proceed and show error if nothing selected - error message text set in the view
-        return res.render("what-team-are-you", {
+        return res.render('what-team-are-you', {
             errorMsg: true
         });
     }
-})
 
-// Change - Which team are you on?
-router.post('/change-what-team-are-you', function(req, res) {
-    let team = req.body.team;
+});
 
-    // If select a team, then proceed
-    if (team == "1" || team == "2") {
-        res.redirect("check-your-answers")
-    } else {
-        // Don't proceed and show error if nothing selected - error message text set in the view
-        return res.render("change-what-team-are-you", {
-            errorMsg: true
-        });
-    }
-})
 
-// National faithful number
+
+//
+// NATIONAL FAITHFUL NUMBER
+//
 router.post('/national-faithful-number', function(req, res) {
     let number = req.session.data['number']
 
     // Number field empty, show error
-    if (!number || number.trim() === "") {
+    if (!number || number.trim() === '') {
         // Don't proceed, render page with error message - error message text set in the view
-        return res.render("national-faithful-number", {
+        return res.render('national-faithful-number', {
             errorMsg: true
         });
     } else {
+
         // If number is entered, then proceed to this page:
-        res.redirect("days-faithful")
+         if( req.session.data.cya === 'true' ){
+            delete req.session.data.cya;
+            res.redirect('check-your-answers');
+        } else {
+            res.redirect('days-faithful');
+        }
     }
 })
 
-// Change - National faithful number
-router.post('/change-national-faithful-number', function(req, res) {
-    let number = req.session.data['number']
 
-    // Number field empty, show error
-    if (!number || number.trim() === "") {
-        // Don't proceed, render page with error message - error message text set in the view
-        return res.render("change-national-faithful-number", {
-            errorMsg: true
-        });
-    } else {
-        // If number is entered, then proceed to this page:
-        res.redirect("check-your-answers")
-    }
-})
 
-// How many days have you been a faithful?
+//
+// HOW MANY DAYS HAVE YOU BEEN A FAITHFUL?
+//
 router.post('/days-faithful', function(req, res) {
-     let days = req.body.days;
+     let days = req.body.daysFaithful;
 
     // If select a team, then proceed
-    if (days == "121" || days == "111" || days == "147" || days == "87") {
-        res.redirect("word-scramble")
+    if (days === "121" || days === "111" || days === "147" || days === "87") {
+         if( req.session.data.cya === 'true' ){
+            delete req.session.data.cya;
+            res.redirect('check-your-answers');
+        } else {
+            res.redirect("maze-scramble");
+        }
     } else {
         // Don't proceed and show error if nothing selected - error message text set in the view
-        return res.render("days-faithful", {
+        return res.render('days-faithful', {
             errorMsg: true
         });
     }
-})
+});
 
-// Change - How many days have you been a faithful?
-router.post('/change-days-faithful', function(req, res) {
-     let days = req.body.days;
+//
+// MAZE SCRAMBLE
+//
+router.post('/maze-scramble', function(req, res) {
 
-    // If select a team, then proceed
-    if (days == "121" || days == "111" || days == "147" || days == "87") {
-        res.redirect("check-your-answers")
-    } else {
-        // Don't proceed and show error if nothing selected - error message text set in the view
-        return res.render("change-days-faithful", {
-            errorMsg: true
-        });
-    }
-})
+    let wordOne = req.session.data.wordOne || '';
+    let wordTwo = req.session.data.wordTwo || '';
 
-// Word scramble
-router.post('/word-scramble', function(req, res) {
-    let one = req.session.data['one']
-    let two = req.session.data['two']
-    let three = req.session.data['three']
-    let four = req.session.data['four']
-    let five = req.session.data['five']
-    let six = req.session.data['six']
-    let seven = req.session.data['seven']
-    let eight = req.session.data['eight']
+    req.session.data.wordOne = wordOne.toUpperCase().trim();
+    req.session.data.wordTwo = wordTwo.toUpperCase().trim();
 
     // If any fields are empty, show error
-    if (
-        !one || one.trim() === "" ||
-        !two || two.trim() === "" ||
-        !three || three.trim() === "" ||
-        !four || four.trim() === "" ||
-        !five || five.trim() === "" ||
-        !six || six.trim() === "" ||
-        !seven || seven.trim() === "" ||
-        !eight || eight.trim() === ""
-    ) {
+    if ( wordOne.trim() === '' || wordTwo.trim() === '' ) {
         // Don't proceed, render page with error message - error message text set in the view
-        return res.render("word-scramble", {
+        return res.render('maze-scramble', {
             errorMsg: true
         });
     } else {
         // If number is entered, then proceed to this page:
-        res.redirect("check-your-answers")
+        res.redirect('check-your-answers');
     }
-})
+});
 
-// Change - Word scramble
-router.post('/change-word-scramble', function(req, res) {
-    let one = req.session.data['one']
-    let two = req.session.data['two']
-    let three = req.session.data['three']
-    let four = req.session.data['four']
-    let five = req.session.data['five']
-    let six = req.session.data['six']
-    let seven = req.session.data['seven']
-    let eight = req.session.data['eight']
 
-    // If any fields are empty, show error
-    if (
-        !one || one.trim() === "" ||
-        !two || two.trim() === "" ||
-        !three || three.trim() === "" ||
-        !four || four.trim() === "" ||
-        !five || five.trim() === "" ||
-        !six || six.trim() === "" ||
-        !seven || seven.trim() === "" ||
-        !eight || eight.trim() === ""
-    ) {
-        // Don't proceed, render page with error message - error message text set in the view
-        return res.render("change-word-scramble", {
-            errorMsg: true
-        });
-    } else {
-        // If number is entered, then proceed to this page:
-        res.redirect("check-your-answers")
-    }
-})
 
 // Check your answers
 router.post('/check-your-answers', function(req, res) {
-    let team = req.session.data['team']
-    let number = req.session.data['number']
-    let days = req.session.data['days']
 
-    let one = req.session.data['one']
-    let two = req.session.data['two']
-    let three = req.session.data['three']
-    let four = req.session.data['four']
-    let five = req.session.data['five']
-    let six = req.session.data['six']
-    let seven = req.session.data['seven']
-    let eight = req.session.data['eight']
+
+    let team = req.session.data.team;
+    let number = req.session.data.number;
+    let days = req.session.data.daysFaithful;
+    let wordOne = req.session.data.wordOne;
+    let wordTwo = req.session.data.wordTwo;
+
+    let words = [ wordOne.toUpperCase().trim(), wordTwo.toUpperCase().trim() ];
+
 
     if (
-        // Team 1 - 925461738, 111 and abruptly as asnwers is success
+        // Team 1 - 925461738, 111 and REACT, SPIRE as asnwers is success
         team == "1" && 
         number == "925461738" && 
         days == "111" && 
-        one == "a" && 
-        two == "b" &&
-        three == "r" &&
-        four == "u" &&
-        five == "p" &&
-        six == "t" &&
-        seven == "l" &&
-        eight == "y"
+        words.indexOf('REACT') > -1 &&
+        words.indexOf('SPIRE') > -1
+        
     ) {
-        res.redirect("success")
+        res.redirect("success");
     } else if (
-        // Team 2 - 925461738, 147 and abruptly as asnwers is success
+        // Team 2 - 925461738, 147 and PLANE, LASER as asnwers is success
         team == "2" && 
         number == "925461738" && 
         days == "147" && 
-        one == "a" && 
-        two == "b" &&
-        three == "r" &&
-        four == "u" &&
-        five == "p" &&
-        six == "t" &&
-        seven == "l" &&
-        eight == "y"
+        words.indexOf('PLANE') > -1 &&
+        words.indexOf('LASER') > -1
     ) {
-        res.redirect("success")
+        res.redirect("success");
+        
     } else {
         // If any other answers, they fail
-        res.redirect("fail")
+        req.session.data.failedTask = 'true';
+        res.redirect("fail");
     }
 })
 
-module.exports = router
+module.exports = router;

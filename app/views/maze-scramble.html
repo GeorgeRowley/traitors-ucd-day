@@ -1,7 +1,6 @@
 <!-- Use this page as the index for your project -->
 
 <!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
-
 <!-- Extends the layout from /app/views/layout.html -->
 {% extends 'layout.html' %}
 <!--
@@ -17,15 +16,15 @@
   service name is needed. You can also reuse this variable
   within the <h1>, where they are the same.
 -->
-{% set pageName = "National faithful number" %}
+{% set pageName = "Unscramble these characters to create a word" %}
 
 <!-- For adding a breadcrumb or back link -->
 {% block beforeContent %}
 
 	{% if data.cya !== 'true' %}
 		{{ backLink({
-			href: 'what-team-are-you',
-			text: "Back"
+			href: 'days-faithful',
+			text: 'Back'
 		}) }}
 	{% endif %}
 
@@ -35,45 +34,59 @@
 <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-two-thirds">
 		{% if errorMsg == true %}
+
 			{{ errorSummary({
 				titleText: "There is a problem",
 				descriptionText: "",
 				errorList: [
 					{
-					text: "Enter your national faithful number",
-					href: "#nfs-number"
+					text: "Enter both code words",
+					href: "#wordOne"
 					}
 				]
 			}) }}
 		{% endif %}   
 
-		<form action="national-faithful-number" method="post">
+		<form action="maze-scramble" method="post">
 			{% if errorMsg == true %}
-				{% set errorMessage = { text: "Enter your national faithful number" } %}
+				{% set errorMessage = { text: "Enter both code words" } %}
 			{% else %}
 				{% set errorMessage = null %}
 			{% endif %}
 
-			{{ input({
-				label: {
-					text: "What is your national faithful number?",
-					isPageHeading: true,
-					classes: "nhsuk-label--l"
-				},
-				classes: 'nhsuk-input--width-10',
-				hint: {
-                    text: "You can find this from the circle puzzle task"
+            <h1 class="nhsuk-heading-l">What are the faithful code words?</h1>
+            <p class="nhsuk-hint">You can find these from the maze task. You can enter them in any order.</p>
+
+        
+            {{ input({
+                label: {
+                    text: 'First word'
                 },
-				id: "nfs-number",
-				name: "number",
-				value: data.number,
-				errorMessage: errorMessage,
-				autocomplete: false
-			}) }}		
+                id: 'wordOne',
+                name: 'wordOne',
+                value: data.wordOne,
+                classes: 'nhsuk-input--width-10',
+                autocomplete: false,
+                spellcheck: false
+            }) }}
+
+            {{ input({
+                label: {
+                    text: 'Second word'
+                },
+                id: 'wordTwo',
+                name: 'wordTwo',
+                value: data.wordTwo,
+                classes: 'nhsuk-input--width-10',
+                autocomplete: false,
+                spellcheck: false
+            }) }}
+           
 
 			{{ button({
-				text: "Continue"
+				text: 'Continue'
 			}) }}
+
 		</form>
     </div>
 </div>

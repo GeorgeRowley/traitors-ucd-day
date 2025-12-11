@@ -21,10 +21,14 @@
 
 <!-- For adding a breadcrumb or back link -->
 {% block beforeContent %}
-	{{ backLink({
-		href: "national-faithful-number",
-		text: "Back"
-	}) }}
+
+    {% if data.cya !== 'true' %}
+        {{ backLink({
+            href: 'national-faithful-number',
+            text: 'Back'
+        }) }}
+    {% endif %}
+
 {% endblock %}
 
 {% block content %}
@@ -51,13 +55,13 @@
 			{% endif %}
 
             {{ radios({
-                idPrefix: "days",
-                name: "days",
+                idPrefix: 'daysFaithful',
+                name: 'daysFaithful',
+                value: data.daysFaithful,
                 errorMessage: errorMessage,
                 fieldset: {
                     legend: {
                         text: "How many days have you been a faithful?",
-                        size: "l",
                         isPageHeading: true,
                         classes: "nhsuk-label--l"
                     }

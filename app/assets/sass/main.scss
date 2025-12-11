@@ -5,3 +5,23 @@
 .red-bg {
     background-color: #d5281b !important;
 }
+
+h1, h2, h3, h4, h5, h6,
+.nhsuk-panel__title,
+.nhsuk-table__caption,
+.nhsuk-button,
+.nhsuk-label:not(.nhsuk-radios__label),
+.nhsuk-header__service-name {
+    font-family: "Pirata One", system-ui !important;
+    font-weight: 400 !important;
+    font-style: normal;
+}
+
+.nhsuk-header__service-name,
+.nhsuk-table__caption {
+    font-size: 2rem;
+}
+
+.nhsuk-button {
+    font-size: 1.75rem;
+}
